@@ -1,0 +1,158 @@
+{
+  "version": 2,
+  "elements": [
+    {
+      "id": "el_1",
+      "type": "tank",
+      "x": 80,
+      "y": 100,
+      "w": 120,
+      "h": 160,
+      "fill": "#5a9ade",
+      "text": "1#水箱",
+      "tagTemplateId": "tpl.level",
+      "deviceNo": null
+    },
+    {
+      "id": "el_2",
+      "type": "motor",
+      "x": 280,
+      "y": 130,
+      "w": 100,
+      "h": 100,
+      "fill": "#7ab55c",
+      "text": "1#电机",
+      "tagTemplateId": "tpl.speed",
+      "deviceNo": null
+    },
+    {
+      "id": "el_3",
+      "type": "label",
+      "x": 440,
+      "y": 150,
+      "w": 170,
+      "h": 44,
+      "fill": "#d9b45b",
+      "text": "出口压力",
+      "tagTemplateId": "tpl.pressure",
+      "deviceNo": null
+    },
+    {
+      "id": "el_4",
+      "type": "lamp",
+      "x": 660,
+      "y": 145,
+      "w": 60,
+      "h": 60,
+      "fill": "#7ab55c",
+      "text": "运行",
+      "tagTemplateId": "tpl.current",
+      "deviceNo": null
+    },
+    {
+      "id": "el_5",
+      "type": "trend",
+      "x": 780,
+      "y": 90,
+      "w": 260,
+      "h": 140,
+      "fill": "#5a9ade",
+      "text": "流量趋势",
+      "tagTemplateId": "tpl.flow",
+      "deviceNo": null
+    },
+    {
+      "id": "el_6",
+      "type": "button",
+      "x": 80,
+      "y": 360,
+      "w": 120,
+      "h": 48,
+      "fill": "#5a9ade",
+      "text": "阀门",
+      "tagTemplateId": "tpl.valve",
+      "deviceNo": null
+    },
+    {
+      "id": "el_7",
+      "type": "button",
+      "x": 240,
+      "y": 360,
+      "w": 120,
+      "h": 48,
+      "fill": "#7ab55c",
+      "text": "设定值",
+      "tagTemplateId": "tpl.setpoint",
+      "deviceNo": null
+    },
+    {
+      "id": "el_8",
+      "type": "label",
+      "x": 440,
+      "y": 360,
+      "w": 170,
+      "h": 44,
+      "fill": "#d9b45b",
+      "text": "温度",
+      "tagTemplateId": "tpl.temp",
+      "deviceNo": null
+    },
+    {
+      "id": "el_9",
+      "type": "rect",
+      "x": 660,
+      "y": 340,
+      "w": 160,
+      "h": 100,
+      "fill": "#5a9ade",
+      "text": "2#水箱",
+      "tagTemplateId": "tpl.level",
+      "deviceNo": null
+    },
+    {
+      "id": "el_10",
+      "type": "circle",
+      "x": 440,
+      "y": 300,
+      "w": 110,
+      "h": 110,
+      "fill": "#7ab55c",
+      "text": "1#泵",
+      "tagTemplateId": "tpl.temp",
+      "deviceNo": null
+    }
+  ],
+  "pipes": [
+    {
+      "id": "pipe_1",
+      "fromId": "el_1",
+      "toId": "el_2"
+    },
+    {
+      "id": "pipe_2",
+      "fromId": "el_2",
+      "toId": "el_3"
+    },
+    {
+      "id": "pipe_3",
+      "fromId": "el_3",
+      "toId": "el_4"
+    },
+    {
+      "id": "pipe_4",
+      "fromId": "el_4",
+      "toId": "el_5"
+    },
+    {
+      "id": "pipe_5",
+      "fromId": "el_1",
+      "toId": "el_6"
+    },
+    {
+      "id": "pipe_6",
+      "fromId": "el_2",
+      "toId": "el_10"
+    }
+  ],
+  "savedAt": "2026-09-11T00:00:00.000Z"
+}

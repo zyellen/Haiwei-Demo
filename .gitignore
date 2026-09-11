@@ -1,0 +1,14 @@
+# 依赖目录
+node_modules/
+
+# 构建产物
+web/dist/
+web/tsconfig.tsbuildinfo
+
+# 运行时保存的画面（scene.demo.json 是随仓库提交的演示存档，不在此列）
+server/data/scene.json
+
+# 日志与系统杂物
+*.log
+npm-debug.log*
+.DS_Store
