@@ -65,7 +65,8 @@ function onApply(): void {
     parsed = JSON.parse(commandText.value) as unknown;
   } catch (error) {
     result.value = null;
-    parseError.value = error instanceof Error ? error.message : String(error);
+    const originalMessage = error instanceof Error ? error.message : String(error);
+    parseError.value = `指令必须是 JSON 数组，例如 [{"op":"add","kind":"rect","x":20,"y":20}]；原始错误：${originalMessage}`;
     return;
   }
 
