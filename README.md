@@ -77,14 +77,15 @@ mini-scada/
         │   ├── scene.ts      # 图元与管道 CRUD、选中态、保存加载
         │   └── runtime.ts    # 元数据、SSE 连接、实时值、报警状态与报警历史
         ├── core/
-        │   ├── draw.ts       # 网格、管道、图元、选中框与报警闪烁绘制
+        │   ├── draw.ts       # 渲染门面：drawElement 分派、选中框与整幅画面调度
+        │   ├── primitives/   # 按图元拆分的绘制实现：base/grid/pipes/tank/motor/lamp/trend
         │   ├── hitTest.ts    # 点击命中检测
         │   └── migrate.ts    # v1 存档到模板 + 设备号的迁移
         └── components/
             ├── Toolbar.vue
             ├── CanvasStage.vue   # canvas + 鼠标交互 + rAF 重绘
             ├── PropertyPanel.vue
-            ├── AlarmBar.vue      # 最近 5 条报警
+            ├── AlarmBar.vue      # 最近 5 条报警（默认按当前设备过滤，可切全部设备）
             └── ToastHost.vue
 ```
 
@@ -113,7 +114,7 @@ key     = `${deviceNo}.${tagTemplateId}`
 
 例如 `tpl.level + 1` 解析为 `1#液位 / MW10`，`tpl.level + 2` 解析为 `2#液位 / MW12`。因此同一份画面模板可以通过切换设备号实例化为不同设备的画面，地址由系统计算，画面不出现具体地址。
 
-预置画面是「未指定设备实例的模板画面」，顶栏「设备号」下拉切换即切换整屏点位实例（1#/2#/3#）。报警栏汇总所有设备实例的报警，不按当前设备号过滤。
+预置画面是「未指定设备实例的模板画面」，顶栏「设备号」下拉切换即切换整屏点位实例（1#/2#/3#）。报警栏默认只显示当前设备号的报警，可切换到「全部设备」查看所有实例的报警；无设备号的记录在按设备模式下始终显示。
 
 前端绑定示例：
 
@@ -183,7 +184,7 @@ v2 `Scene` 使用 `version: 2`；`web/src/core/migrate.ts` 会把旧版 `tagId`�
 
 ## 11. 图元库（按钮、液位、电机、指示灯、趋势图）
 
-在基础图元（矩形、圆形、文本）之外，工具栏提供 5 类面向工控画面的专用图元。它们复用同一套 `Element` 数据结构和「点位模板 + 设备号」绑定方式，只在渲染与交互上增加类型语义；类型联合见 `web/src/types.ts`，绘制实现集中在 `web/src/core/draw.ts`。
+在基础图元（矩形、圆形、文本）之外，工具栏提供 5 类面向工控画面的专用图元。它们复用同一套 `Element` 数据结构和「点位模板 + 设备号」绑定方式，只在渲染与交互上增加类型语义；类型联合见 `web/src/types.ts`，绘制实现按图元拆分到 `web/src/core/primitives/`，`web/src/core/draw.ts` 保留为渲染门面（调度 + 向后兼容导出）。
 
 | 图元 | `type` | 默认尺寸 | 运行时表现 | 交互与绑定要点 |
 | --- | --- | --- | --- | --- |

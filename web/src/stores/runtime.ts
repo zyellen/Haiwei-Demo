@@ -9,11 +9,13 @@ import type { Device, ResolvedTag, TagTemplate } from '../types';
 export type AlarmMap = Record<string, 'high' | 'low'>;
 
 // 报警历史记录：时间与文案在推入时固化，避免后续每秒重算。
+// deviceNo 用于报警栏按当前设备号过滤；无法解析设备号的记录保留为 null。
 export interface RecentAlarm {
   id: number;
   time: string;
   tagName: string;
   kind: 'high' | 'low';
+  deviceNo: number | null;
 }
 
 // SSE tags 事件的负载结构，字段与开发文档 §5.3 对齐。
@@ -126,12 +128,14 @@ export const useRuntimeStore = defineStore('runtime', () => {
       if (previousAlarms[key] !== undefined) {
         continue;
       }
+      const resolved = getResolvedTagByKey(key);
       alarmSequence += 1;
       additions.push({
         id: alarmSequence,
         time: formatTime(timestamp),
-        tagName: getResolvedTagByKey(key)?.name ?? key,
-        kind
+        tagName: resolved?.name ?? key,
+        kind,
+        deviceNo: resolved?.deviceNo ?? null
       });
     }
     // 报警结束后 key 会从 nextAlarms 消失；再次出现时 previousAlarms 已无该键，自然记为一条新记录。
